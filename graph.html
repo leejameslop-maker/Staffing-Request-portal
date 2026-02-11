@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Graph List Helpers</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;padding:2rem;line-height:1.5}
+    pre{background:#f6f8fa;padding:1rem;border-radius:6px;overflow:auto}
+    button{padding:.5rem .75rem;border:1px solid #ccc;border-radius:6px;background:#fff;cursor:pointer}
+    button:hover{background:#f2f2f2}
+    .row{margin:.75rem 0}
+  </style>
+</head>
+<body>
+  <h1>Microsoft Graph List Helpers (graph.js)</h1>
+  <p>These helpers connect your GitHub Pages dashboard to your SharePoint list using Microsoft Graph.</p>
+
+  <!-- IMPORTANT: auth.html (MSAL) must be loaded BEFORE this file in your real app. -->
+  <!-- For demo purposes, we assume auth has already been initialized on the page. -->
+
+  <script>
+    // ===================== graph.js =====================
+    const GRAPH_BASE = "https://graph.microsoft.com/v1.0";
+
+    // Tenant/site/list config for Interim WM
+    const SRP_CONFIG = {
+      hostname: "interimwm.sharepoint.com",
+      sitePath: "/sites/InterimHealthCareofWestMichigan",
+      listTitle: "Staffing Requests"
+    };
+
+    async function graphFetch(url, options = {}) {
+      const token = await getAccessToken(); // provided by auth.html
+      const headers = { Authorization: `Bearer ${token}`, ...(options.headers || {}) };
+      const resp = await fetch(url, { ...options, headers });
+      if (!resp.ok) {
+        const txt = await resp.text().catch(() => "");
+        throw new Error(`Graph error ${resp.status}: ${txt}`);
+      }
+      return resp.status !== 204 ? resp.json() : null;
+    }
+
+    async function resolveIds() {
+      const cacheKey = "srpIds";
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) return JSON.parse(cached);
+
+      // 1) Resolve site by path
+      const encodedPath = encodeURIComponent(SRP_CONFIG.sitePath.substring(1));
+      const site = await graphFetch(`${GRAPH_BASE}/sites/${SRP_CONFIG.hostname}:%2F${encodedPath}`);
+      const siteId = site.id;
+
+      // 2) Resolve list by title
+      const list = await graphFetch(`${GRAPH_BASE}/sites/${siteId}/lists/${encodeURIComponent(SRP_CONFIG.listTitle)}`);
+      const listId = list.id;
+
+      const ids = { siteId, listId };
+      localStorage.setItem(cacheKey, JSON.stringify(ids));
+      return ids;
+    }
+
+    async function getRequests() {
+      const { siteId, listId } = await resolveIds();
+      const data = await graphFetch(`${GRAPH_BASE}/sites/${siteId}/lists/${listId}/items?expand=fields`);
+      return data.value.map(it => ({ id: it.id, ...it.fields }));
+    }
+
+    async function createRequest(fields) {
+      const { siteId, listId } = await resolveIds();
+      return graphFetch(`${GRAPH_BASE}/sites/${siteId}/lists/${listId}/items`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fields })
+      });
+    }
+
+    async function updateRequest(itemId, fields) {
+      const { siteId, listId } = await resolveIds();
+      await graphFetch(`${GRAPH_BASE}/sites/${siteId}/lists/${listId}/items/${itemId}/fields`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields)
+      });
+    }
+
+    const STAGES = ["New", "Triage", "Sourcing", "Scheduled", "Closed"];
+    async function updateStage(itemId, newStage) {
+      if (!STAGES.includes(newStage)) throw new Error("Invalid Stage");
+      await updateRequest(itemId, { Stage: newStage });
+    }
+
+    // Simple demo UI to verify everything works
+    async function demoLoad() {
+      const out = document.getElementById("output");
+      out.textContent = "Loading & signing in...";
+      await signInIfNeeded();
+      const rows = await getRequests();
+      out.textContent = JSON.stringify(rows.slice(0, 5), null, 2);
+    }
+  </script>
+
+  <div class="row">
+    <button onclick="demoLoad()">Sign in & Load first 5 items</button>
+  </div>
+  <pre id="output">Click the button above to test.</pre>
+
+</body>
+</html>

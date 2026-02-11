@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MSAL Auth Bootstrap</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;padding:2rem;line-height:1.5}
+    code{background:#f6f8fa;padding:2px 4px;border-radius:4px}
+    .ok{color:#0a7}
+    .warn{color:#b55}
+    .muted{color:#667}
+  </style>
+</head>
+<body>
+  <h1>MSAL Authentication Setup (auth.js)</h1>
+  <p class="muted">This file is a drop-in helper for your GitHub Pages site. Replace the placeholders with your own values and include this file before any Microsoft Graph calls.</p>
+
+  <!-- MSAL browser library -->
+  <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js" integrity="sha384-sZ0m1X5xg+samplehash+DoNotRelyOnThis" crossorigin="anonymous"></script>
+
+  <script>
+    // ===================== auth.js =====================
+    // Replace the placeholders below with your actual values
+    const msalConfig = {
+      auth: {
+        clientId: "YOUR_CLIENT_ID", // e.g., 00000000-0000-0000-0000-000000000000
+        authority: "https://login.microsoftonline.com/YOUR_TENANT_ID", // e.g., contoso.onmicrosoft.com or a GUID
+        redirectUri: "https://leejameslop-maker.github.io/Staffing-Request-portal/"
+      },
+      cache: { cacheLocation: "sessionStorage" }
+    };
+
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+    const loginRequest = {
+      // Use Sites.Read.All for read-only; Sites.ReadWrite.All if creating/updating items
+      scopes: ["openid", "profile", "offline_access", "Sites.ReadWrite.All"]
+    };
+
+    async function signInIfNeeded() {
+      const accounts = msalInstance.getAllAccounts();
+      if (accounts.length === 0) {
+        await msalInstance.loginPopup(loginRequest);
+      }
+    }
+
+    async function getAccessToken() {
+      const account = msalInstance.getAllAccounts()[0];
+      const req = { ...loginRequest, account };
+      try {
+        const res = await msalInstance.acquireTokenSilent(req);
+        return res.accessToken;
+      } catch (e) {
+        const res = await msalInstance.acquireTokenPopup(req);
+        return res.accessToken;
+      }
+    }
+    // =================== end auth.js ===================
+  </script>
+
+  <p class="ok">Loaded MSAL bootstrap. Now include <code>graph.html</code> (or your app scripts) after this.</p>
+</body>
+</html>
