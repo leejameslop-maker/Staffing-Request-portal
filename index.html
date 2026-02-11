@@ -20,7 +20,11 @@
             --shadow: rgba(196, 30, 58, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -29,7 +33,11 @@
             line-height: 1.6;
         }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
         header {
             background: var(--surface);
@@ -56,6 +64,7 @@
         .logo-container img {
             height: 50px;
             width: auto;
+            display: block;
         }
 
         .employee-owned-badge {
@@ -65,66 +74,159 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
-        /* ... rest of your CSS unchanged ... */
-        /* Paste all your original CSS here from :root to the @media queries */
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <!-- FIX LOGO: Replace src with your actual logo URL or base64 -->
-                    <img src="https://via.placeholder.com/150x50?text=IHC+Logo" alt="IHC Medical Staffing">
-                    <div class="employee-owned-badge">100% EMPLOYEE OWNED</div>
-                </div>
-                <div class="nav-tabs">
-                    <button class="nav-tab active" onclick="switchView('request')">Submit Request</button>
-                    <button class="nav-tab" onclick="switchView('dashboard')">Dashboard</button>
-                </div>
-            </div>
-        </div>
-    </header>
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+        }
 
-    <div class="container">
-        <div id="requestView" class="view active">
-            <div class="form-card">
-                <div class="form-header">
-                    <h1>Staffing Request</h1>
-                    <p>Submit your staffing needs and we'll respond within 2 hours</p>
-                </div>
+        .nav-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
 
-                <div class="trust-badges">
-                    <!-- your badges here -->
-                </div>
+        .nav-tab:hover {
+            background: var(--bg);
+            color: var(--text);
+        }
 
-                <div id="successMessage" class="success-message">
-                    Request submitted successfully! We'll be in touch within 2 hours.
-                </div>
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+        }
 
-                <form id="staffingForm"
-                      action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE"  <!-- ← replace with real endpoint -->
-                      method="POST"
-                      class="form-grid">
+        .view {
+            display: none;
+            padding: 40px 0;
+        }
 
-                    <input type="hidden" name="_subject" value="New Staffing Request from [facilityName]">
-                    <input type="hidden" name="_replyto" value="[email]">
+        .view.active {
+            display: block;
+        }
 
-                    <!-- Rest of your form fields unchanged -->
-                    <!-- ... paste your full form content here ... -->
+        .form-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 16px var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-                    <button type="submit" class="submit-btn">Submit Staffing Request</button>
-                </form>
-            </div>
-        </div>
+        .form-header {
+            margin-bottom: 32px;
+        }
 
-        <!-- Dashboard view unchanged -->
-        <!-- ... paste your dashboard HTML and script here ... -->
-    </div>
+        .form-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
 
-    <!-- Your JavaScript here -->
-    <!-- ... paste your original script (switchView, addDateShift, loadDashboard, etc.) ... -->
-</body>
-</html>
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .trust-badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .badge-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .badge span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group label .required {
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--shadow);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .shift-section {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--bg);
+            border-radius: 12
