@@ -799,13 +799,18 @@
             }).join('');
         }
     </script>
+    <!-- … your page markup … -->
+
+  <!-- 1) MSAL library -->
+  <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
+
+  <!-- 2) Your MSAL bootstrap -->
+  <script src="auth.js"></script>
+
+  <!-- 3) Your Graph helpers -->
+  <script src="graph.js"></script>
 </body>
 </html>
-<!-- Load MSAL library -->
-<script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
 
-<!-- Load your auth.js logic (inside auth.html) -->
-<script src="auth.html"></script>
-
-<!-- Load your graph.js logic (inside graph.html) -->
-<script src="graph.html"></script>
+</body>
+</html>
