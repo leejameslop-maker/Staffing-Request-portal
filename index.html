@@ -18,79 +18,89 @@
     }
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-    .container{max-width:1400px;margin::0 24px}
+    .container{max-width:1400px;margin:0 auto;padding:0 24px}
 
-    header{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px var(--shadow)}
+    header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px var(--shadow)}
     .header-content{display:flex;justify-content:space-between;align-items:center}
-    .logo-container{display:flex;align-items:center;gap:16px}
-    .logo-container img{height:50px;width:auto;display:block}
+    .logo-container{display:flex;align-items:center;gap:14px}
+    .logo-container img{height:40px;width:auto;display:block}
     .employee-owned-badge{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.5px}
 
     .nav-tabs{display:flex;gap:8px}
-    .nav-tab{padding:10px 20px;background:transparent;border:none;border-radius:8px;cursor:pointer;font-size:15px;font-weight:500;color:var(--text-muted);transition:.2s}
-    .nav-tab:hover{background:var(--bg);color:var(--text)}
-    .nav-tab.active{background:var(--primary);color:#fff}
+    .nav-tab{padding:10px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text);transition:.2s}
+    .nav-tab:hover{background:var(--bg)}
+    .nav-tab.active{background:var(--primary);border-color:var(--primary);color:#fff}
 
-    .view{display:none;padding:40px 0}
+    .view{display:none;padding:28px 0}
     .view.active{display:block}
 
-    .form-card{background:var(--surface);border-radius:16px;padding:32px;box-shadow:0 4px 16px var(--shadow);max-width:800px;margin:0 auto}
-    .form-header{margin-bottom:32px}
-    .form-header h1{font-size:28px;font-weight:700;color:var(--text);margin-bottom:8px}
-    .form-header p{color:var(--text-muted);font-size:15px}
+    .form-card{background:var(--surface);border-radius:16px;padding:24px;box-shadow:0 4px 16px var(--shadow);max-width:880px;margin:0 auto}
+    .form-header{margin-bottom:24px}
+    .form-header h1{font-size:26px;font-weight:800;color:var(--text);margin-bottom:6px}
+    .form-header p{color:var(--text-muted);font-size:14px}
 
-    .trust-badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
-    .badge{display:flex;align-items:center;gap:8px;padding:12px 16px;background:linear-gradient(135deg,#f8f9fa,#fff);border:1px solid var(--border);border-radius:8px}
-    .badge-icon{width:24px;height:24px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
-    .badge span{font-size:13px;font-weight:600;color:var(--text)}
+    .trust-badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px}
+    .badge{display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(135deg,#f8f9fa,#fff);border:1px solid var(--border);border-radius:8px}
+    .badge-icon{width:20px;height:20px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+    .badge span{font-size:12px;font-weight:700;color:var(--text)}
 
-    .form-grid{display:grid;gap:24px}
-    .form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-    .form-group{display:flex;flex-direction:column;gap:8px}
-    .form-group label{font-size:14px;font-weight:600;color:var(--text)}
+    .form-grid{display:grid;gap:18px}
+    .form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    .form-group{display:flex;flex-direction:column;gap:6px}
+    .form-group label{font-size:13px;font-weight:700;color:var(--text)}
     .form-group label .required{color:var(--primary)}
-    .form-group input,.form-group select,.form-group textarea{padding:12px 16px;border:1px solid var(--border);border-radius:8px;font-size:15px;transition:.2s}
+    .form-group input,.form-group select,.form-group textarea{padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;transition:.2s}
     .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--shadow)}
     .form-group textarea{min-height:100px;resize:vertical}
 
-    .shift-section{margin-top:24px;padding:24px;background:var(--bg);border-radius:12px}
-    .shift-section h3{font-size:18px;font-weight:700;color:var(--text);margin-bottom:16px}
-    .date-shift-entry{display:grid;grid-template-columns:200px 1fr auto;gap:12px;align-items:start;padding:16px;background:#fff;border-radius:8px;margin-bottom:12px;border:1px solid var(--border)}
-
-    .shift-checkboxes{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
-    .checkbox-item{display:flex;align-items:center;gap:8px}
+    .shift-section{margin-top:6px;padding:14px;background:var(--bg);border-radius:12px}
+    .shift-section h3{font-size:16px;font-weight:800;color:var(--text);margin-bottom:10px}
+    .date-shift-entry{display:grid;grid-template-columns:200px 1fr auto;gap:10px;align-items:start;padding:12px;background:#fff;border-radius:8px;margin-bottom:10px;border:1px solid var(--border)}
+    .shift-checkboxes{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+    .checkbox-item{display:flex;align-items:center;gap:6px}
     .checkbox-item input[type="checkbox"]{width:18px;height:18px;cursor:pointer;accent-color:var(--primary)}
-    .checkbox-item label{font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px}
-    .staff-count-input{width:60px;padding:4px 8px;border:1px solid var(--border);border-radius:4px;text-align:center}
+    .checkbox-item label{font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
+    .staff-count-input{width:60px;padding:4px 6px;border:1px solid var(--border);border-radius:4px;text-align:center}
 
-    .add-date-btn,.remove-date-btn{padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:.2s}
-    .add-date-btn{background:var(--primary);color:#fff;margin-top:12px}
+    .add-date-btn,.remove-date-btn{padding:8px 12px;border:none;border-radius:6px;cursor:pointer;font-weight:700;transition:.2s}
+    .add-date-btn{background:var(--primary);color:#fff;margin-top:8px}
     .add-date-btn:hover{background:var(--primary-dark)}
     .remove-date-btn{background:#fee;color:#c00;align-self:center}
     .remove-date-btn:hover{background:#fdd}
 
-    .submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;transition:.2s;margin-top:24px}
-    .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 16px var(--shadow)}
+    .submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:.2s;margin-top:8px}
+    .submit-btn:hover{transform:translateY(-1px);box-shadow:0 8px 16px var(--shadow)}
 
-    .success-message{display:none;padding:16px;background:var(--success);color:#fff;border-radius:8px;margin-bottom:24px}
+    .success-message{display:none;padding:12px;background:var(--success);color:#fff;border-radius:8px;margin-bottom:12px}
     .success-message.show{display:block}
 
-    .dashboard-header{margin-bottom:32px}
-    .dashboard-header h1{font-size:32px;font-weight:700;color:var(--text);margin-bottom:8px}
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
-    .stat-card{background:var(--surface);padding:24px;border-radius:12px;box-shadow:0 2px 8px var(--shadow)}
+    .dashboard-header{margin-bottom:20px}
+    .dashboard-header h1{font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px}
+
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+    .stat-card{background:var(--surface);padding:18px;border-radius:12px;box-shadow:0 2px 8px var(--shadow)}
+    .stat-card .label{font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+    .stat-card .value{font-size:26px;font-weight:900;color:var(--primary)}
 
     .requests-table{background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow)}
     table{width:100%;border-collapse:collapse}
-    th{padding:16px;background:var(--bg);text-align:left;font-size:13px;font-weight:600;text-transform:uppercase;color:var(--text)}
-    td{padding:16px;border-top:1px solid var(--border);font-size:14px}
+    thead{background:var(--bg)}
+    th{padding:12px;text-align:left;font-size:12px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
+    td{padding:12px;border-top:1px solid var(--border);font-size:13px}
     tbody tr:hover{background:var(--bg)}
 
-    .status-badge{padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600}
+    .status-badge{padding:4px 10px;border-radius:12px;font-size:11px;font-weight:900}
     .status-new,.status-open{background:#e0f2fe;color:#0369a1}
     .status-triage,.status-sourcing,.status-processing{background:#fef3c7;color:#92400e}
     .status-scheduled{background:#dbeafe;color:#1e40af}
     .status-closed,.status-completed{background:#d1fae5;color:#065f46}
+
+    @media (max-width:768px){
+      .header-content{flex-direction:column;gap:10px}
+      .date-shift-entry{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .shift-checkboxes{grid-template-columns:1fr}
+    }
   </style>
 </head>
 
@@ -99,9 +109,7 @@
     <div class="container">
       <div class="header-content">
         <div class="logo-container">
-          
-          <img src="./IHC_Logo_Primary_RGB.png" alt="IHC Medical Staffing Logo" />
-
+          <img src="./IHC_Logo_Primary_RGB.png" alt="IHC Medical Staffing"/>
           <div class="employee-owned-badge">100% EMPLOYEE OWNED</div>
         </div>
 
@@ -113,9 +121,8 @@
     </div>
   </header>
 
-  <!-- --------------------------- FORM --------------------------- -->
-
   <div class="container">
+    <!-- ===================== REQUEST FORM ===================== -->
     <div id="requestView" class="view active">
       <div class="form-card">
         <div class="form-header">
@@ -129,29 +136,28 @@
           <div class="badge"><div class="badge-icon">✓</div><span>24/7 Support</span></div>
         </div>
 
-        <div id="successMessage" class="success-message">Request submitted successfully!</div>
+        <div id="successMessage" class="success-message">Request submitted successfully! We'll be in touch within 2 hours.</div>
 
         <form id="staffingForm" class="form-grid">
-
           <div class="form-row">
             <div class="form-group">
               <label>Facility Name <span class="required">*</span></label>
-              <input type="text" name="facilityName" required/>
+              <input type="text" name="facilityName" required />
             </div>
             <div class="form-group">
               <label>Contact Person <span class="required">*</span></label>
-              <input type="text" name="contactPerson" required/>
+              <input type="text" name="contactPerson" required />
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label>Email <span class="required">*</span></label>
-              <input type="email" name="email" required/>
+              <input type="email" name="email" required />
             </div>
             <div class="form-group">
               <label>Phone <span class="required">*</span></label>
-              <input type="tel" name="phone" required/>
+              <input type="tel" name="phone" required />
             </div>
           </div>
 
@@ -166,7 +172,6 @@
                 <option value="Resident Aide">Resident Aide</option>
               </select>
             </div>
-
             <div class="form-group">
               <label>Assignment Duration <span class="required">*</span></label>
               <select name="duration" required>
@@ -190,37 +195,23 @@
 
           <div class="form-group">
             <label>Special Requirements or Notes</label>
-            <textarea name="notes" placeholder="Any specific requirements…"></textarea>
+            <textarea name="notes" placeholder="Any specific requirements, certifications needed, or additional information..."></textarea>
           </div>
 
           <button type="submit" class="submit-btn">Submit Staffing Request</button>
-
         </form>
       </div>
     </div>
 
-    <!-- ------------------------ DASHBOARD ------------------------ -->
-
+    <!-- ===================== DASHBOARD ===================== -->
     <div id="dashboardView" class="view">
       <div class="dashboard-header"><h1>Staffing Requests Dashboard</h1></div>
 
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="label">Total Requests</div>
-          <div class="value" id="totalRequests">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">New</div>
-          <div class="value" id="newRequests">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Processing</div>
-          <div class="value" id="processingRequests">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Completed</div>
-          <div class="value" id="completedRequests">0</div>
-        </div>
+        <div class="stat-card"><div class="label">Total Requests</div><div class="value" id="totalRequests">0</div></div>
+        <div class="stat-card"><div class="label">New</div><div class="value" id="newRequests">0</div></div>
+        <div class="stat-card"><div class="label">Processing</div><div class="value" id="processingRequests">0</div></div>
+        <div class="stat-card"><div class="label">Completed</div><div class="value" id="completedRequests">0</div></div>
       </div>
 
       <div class="requests-table">
@@ -241,185 +232,215 @@
         </table>
       </div>
     </div>
-
   </div>
 
-  <!-- Scripts -->
+  <!-- ===================== LIBRARIES ===================== -->
   <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
   <script src="auth.js"></script>
   <script src="graph.js"></script>
 
+  <!-- ===================== APP LOGIC ===================== -->
   <script>
-    /* === SharePoint Field Map === */
+    // === SharePoint field name mapping (confirmed internal names) ===
     const SRP_FIELDS = {
-      Title:'Title',
-      FacilityName:'FacilityName',
-      ContactPerson:'ContactPerson',
-      Email:'Email',
-      Phone:'Phone',
-      PositionType:'PositionType',
-      Duration:'Duration',
-      ShiftDetails:'ShiftDetails',
-      ShiftSummary:'ShiftSummary',
-      SpecialNotes:'SpecialNotes',
-      Status:'Status',
-      Stage:'Stage'
+      Title: 'Title',
+      FacilityName: 'FacilityName',
+      ContactPerson: 'ContactPerson',
+      Email: 'Email',
+      Phone: 'Phone',
+      PositionType: 'PositionType',
+      Duration: 'Duration',
+      ShiftDetails: 'ShiftDetails',
+      ShiftSummary: 'ShiftSummary',
+      SpecialNotes: 'SpecialNotes',
+      Status: 'Status',
+      Stage: 'Stage' // optional (not present now; harmless if missing)
     };
 
-    function getField(item, key, alt=[]){
-      const f=item.fields||item||{};
-      if(f[key]!==undefined&&f[key]!==null)return f[key];
-      for(const a of alt) if(f[a]!==undefined&&f[a]!==null) return f[a];
+    // Small helper to read from { fields: {...} } or flat object
+    function getField(item, name, fallbacks = []) {
+      const f = item?.fields || item || {};
+      if (f[name] !== undefined && f[name] !== null) return f[name];
+      for (const alt of fallbacks) if (f[alt] !== undefined && f[alt] !== null) return f[alt];
       return undefined;
     }
 
-    /* -------- Shift UI Logic -------- */
-    let dateShiftCounter=0;
-    function addDateShift(){
-      const c=document.getElementById('dateShiftContainer');
-      const e=document.createElement('div');
-      e.className='date-shift-entry';
-      e.id=`dateShift${dateShiftCounter}`;
-      e.innerHTML=`
+    // ---------- Shift UI ----------
+    let dateShiftCounter = 0;
+    function addDateShift() {
+      const container = document.getElementById('dateShiftContainer');
+      const entry = document.createElement('div');
+      entry.className = 'date-shift-entry';
+      entry.id = `dateShift${dateShiftCounter}`;
+
+      entry.innerHTML = `
         <div class="form-group" style="margin:0;">
           <input type="date" name="shiftDate[]" required style="padding:8px 12px;">
         </div>
         <div class="shift-checkboxes">
           <div class="checkbox-item">
-            <input type="checkbox" name="shifts_${dateShiftCounter}[]" value="1st">
-            <label>1st (7a-3p) <input type="number" class="staff-count-input" min="1" value="1"></label>
+            <input type="checkbox" id="shift1st_${dateShiftCounter}" name="shifts_${dateShiftCounter}[]" value="1st">
+            <label for="shift1st_${dateShiftCounter}">1st (7a-3p) <input type="number" class="staff-count-input" min="1" value="1"></label>
           </div>
           <div class="checkbox-item">
-            <input type="checkbox" name="shifts_${dateShiftCounter}[]" value="2nd">
-            <label>2nd (3p-11p) <input type="number" class="staff-count-input" min="1" value="1"></label>
+            <input type="checkbox" id="shift2nd_${dateShiftCounter}" name="shifts_${dateShiftCounter}[]" value="2nd">
+            <label for="shift2nd_${dateShiftCounter}">2nd (3p-11p) <input type="number" class="staff-count-input" min="1" value="1"></label>
           </div>
           <div class="checkbox-item">
-            <input type="checkbox" name="shifts_${dateShiftCounter}[]" value="3rd">
-            <label>3rd (11p-7a) <input type="number" class="staff-count-input" min="1" value="1"></label>
+            <input type="checkbox" id="shift3rd_${dateShiftCounter}" name="shifts_${dateShiftCounter}[]" value="3rd">
+            <label for="shift3rd_${dateShiftCounter}">3rd (11p-7a) <input type="number" class="staff-count-input" min="1" value="1"></label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="shift7to11_${dateShiftCounter}" name="shifts_${dateShiftCounter}[]" value="7-11a">
+            <label for="shift7to11_${dateShiftCounter}">7-11a <input type="number" class="staff-count-input" min="1" value="1"></label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="shift11to3_${dateShiftCounter}" name="shifts_${dateShiftCounter}[]" value="11a-3p">
+            <label for="shift11to3_${dateShiftCounter}">11a-3p <input type="number" class="staff-count-input" min="1" value="1"></label>
           </div>
         </div>
-        <button type="button" class="remove-date-btn" onclick="removeDateShift('dateShift${dateShiftCounter}')">Remove</button>`;
-      c.appendChild(e);
+        <button type="button" class="remove-date-btn" onclick="removeDateShift('dateShift${dateShiftCounter}')">Remove</button>
+      `;
+      container.appendChild(entry);
       dateShiftCounter++;
     }
-    function removeDateShift(id){document.getElementById(id)?.remove();}
+    function removeDateShift(id){ document.getElementById(id)?.remove(); }
 
-    /* -------- View Switching -------- */
-    function switchView(v,b){
-      document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
-      document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
-      document.getElementById(v+'View').classList.add('active');
-      b.classList.add('active');
-      if(v==='dashboard') loadDashboard();
+    // ---------- View switching ----------
+    function switchView(view, btn){
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      if (view === 'request') {
+        document.getElementById('requestView').classList.add('active');
+      } else {
+        document.getElementById('dashboardView').classList.add('active');
+        loadDashboard();
+      }
+      if (btn) btn.classList.add('active');
     }
 
-    /* -------- Submission Logic -------- */
-    document.getElementById('staffingForm').addEventListener('submit',async(e)=>{
+    // Initialize with one date/shift entry
+    addDateShift();
+
+    // ---------- Submit → SharePoint via Graph ----------
+    document.getElementById('staffingForm').addEventListener('submit', async function(e){
       e.preventDefault();
-      const fd=new FormData(e.target);
-      const shiftElems=document.querySelectorAll('input[name="shiftDate[]"]');
-      const shifts=[];
+      const fd = new FormData(this);
+      const shifts = collectShiftData();
 
-      shiftElems.forEach((el,i)=>{
-        if(!el.value) return;
-        const checked=[...document.querySelectorAll(`input[name="shifts_${i}[]"]:checked`)];
-        if(checked.length===0) return;
-        shifts.push({
-          date:el.value,
-          shifts:checked.map(c=>({
-            type:c.value,
-            count:parseInt(c.parentElement.querySelector('.staff-count-input').value||'1')
-          }))
-        });
-      });
+      const shiftSummary = shifts.length
+        ? shifts.map(s => {
+            const parts = s.shifts.map(x => `${x.type} x${x.count}`).join(', ');
+            return `${new Date(s.date).toLocaleDateString()}: ${parts}`;
+          }).join(' | ')
+        : 'N/A';
 
-      const summary=shifts.length?shifts.map(s=>{
-        const parts=s.shifts.map(x=>`${x.type} x${x.count}`).join(', ');
-        return `${new Date(s.date).toLocaleDateString()}: ${parts}`;
-      }).join(' | '):'N/A';
-
-      const fields={
-        [SRP_FIELDS.Title]:`${fd.get('facilityName')} - ${fd.get('positionType')}`,
-        [SRP_FIELDS.FacilityName]:fd.get('facilityName'),
-        [SRP_FIELDS.ContactPerson]:fd.get('contactPerson'),
-        [SRP_FIELDS.Email]:fd.get('email'),
-        [SRP_FIELDS.Phone]:fd.get('phone'),
-        [SRP_FIELDS.PositionType]:fd.get('positionType'),
-        [SRP_FIELDS.Duration]:fd.get('duration'),
-        [SRP_FIELDS.ShiftDetails]:JSON.stringify(shifts,null,2),
-        [SRP_FIELDS.ShiftSummary]:summary,
-        [SRP_FIELDS.SpecialNotes]:fd.get('notes'),
-        [SRP_FIELDS.Status]:'New',
-        [SRP_FIELDS.Stage]:'New'
+      // Build fields using internal names
+      const fields = {
+        [SRP_FIELDS.Title]: `${fd.get('facilityName')} - ${fd.get('positionType')}`,
+        [SRP_FIELDS.FacilityName]: fd.get('facilityName'),
+        [SRP_FIELDS.ContactPerson]: fd.get('contactPerson'),
+        [SRP_FIELDS.Email]: fd.get('email'),
+        [SRP_FIELDS.Phone]: fd.get('phone'),
+        [SRP_FIELDS.PositionType]: fd.get('positionType'),
+        [SRP_FIELDS.Duration]: fd.get('duration'),
+        [SRP_FIELDS.ShiftDetails]: JSON.stringify(shifts, null, 2),
+        [SRP_FIELDS.ShiftSummary]: shiftSummary,
+        [SRP_FIELDS.SpecialNotes]: fd.get('notes') || '',
+        [SRP_FIELDS.Status]: 'New'
+        // [SRP_FIELDS.Stage]: 'New' // uncomment if you add Stage
       };
 
       try{
-        await signInIfNeeded();
-        await createRequest(fields);
-        document.getElementById("successMessage").classList.add("show");
-        setTimeout(()=>document.getElementById("successMessage").classList.remove("show"),3500);
-        e.target.reset();
-        dateShiftCounter=0;
-        document.getElementById('dateShiftContainer').innerHTML='';
+        await signInIfNeeded();      // from auth.js
+        await createRequest(fields); // from graph.js
+
+        document.getElementById('successMessage').classList.add('show');
+        this.reset();
+        document.getElementById('dateShiftContainer').innerHTML = '';
+        dateShiftCounter = 0;
         addDateShift();
+        setTimeout(() => document.getElementById('successMessage').classList.remove('show'), 4500);
       }catch(err){
         console.error(err);
-        alert("Error submitting request");
+        alert('There was a problem submitting your request. Please try again.');
       }
     });
 
-    /* -------- Dashboard Logic -------- */
+    function collectShiftData(){
+      const shifts = [];
+      const dates = document.querySelectorAll('input[name="shiftDate[]"]');
+      dates.forEach((dateInput, index) => {
+        if (!dateInput.value) return;
+        const picked = [];
+        const boxes = document.querySelectorAll(`input[name="shifts_${index}[]"]:checked`);
+        boxes.forEach(box => {
+          const label = box.parentElement;
+          const countInput = label.querySelector('.staff-count-input');
+          picked.push({ type: box.value, count: parseInt(countInput.value || '1', 10) });
+        });
+        if (picked.length > 0) {
+          shifts.push({ date: dateInput.value, shifts: picked });
+        }
+      });
+      return shifts;
+    }
+
+    // ---------- Dashboard (read from SharePoint via Graph) ----------
     async function loadDashboard(){
       try{
-        await signInIfNeeded();
-        const items=await getRequests();
-        const rows=items.map(it=>{
-          const f=it.fields||it;
-          const fac=getField(it,SRP_FIELDS.FacilityName);
-          const pos=getField(it,SRP_FIELDS.PositionType);
-          const dur=getField(it,SRP_FIELDS.Duration);
-          const status=(getField(it,SRP_FIELDS.Stage)||getField(it,SRP_FIELDS.Status)||'new').toLowerCase();
-          const summary=getField(it,SRP_FIELDS.ShiftSummary)||'N/A';
-          return{
-            facilityName:fac,
-            positionType:pos,
-            duration:dur,
-            dateSummary:summary,
-            statusClass:status,
-            statusText:status.toUpperCase(),
-            timestamp: new Date().toLocaleDateString()
+        await signInIfNeeded();             // from auth.js
+        const items = await getRequests();  // from graph.js (items with .fields)
+
+        const rows = items.map(it => {
+          const facility = getField(it, SRP_FIELDS.FacilityName) || 'N/A';
+          const position = getField(it, SRP_FIELDS.PositionType) || 'N/A';
+          const duration = getField(it, SRP_FIELDS.Duration) || 'N/A';
+          const summary  = getField(it, SRP_FIELDS.ShiftSummary) || 'N/A';
+          const stage    = (getField(it, SRP_FIELDS.Stage)  || '').toString();
+          const status   = (getField(it, SRP_FIELDS.Status) || '').toString();
+          const badge    = (stage || status || 'New').toLowerCase();
+
+          return {
+            facilityName: facility,
+            positionType: position,
+            duration: duration,
+            dateSummary: summary,
+            statusClass: badge,
+            statusText: (stage || status || 'New'),
+            timestamp: new Date().toISOString()
           };
         });
 
-        document.getElementById('totalRequests').textContent=rows.length;
-        document.getElementById('newRequests').textContent=rows.filter(r=>r.statusClass==='new').length;
-        document.getElementById('processingRequests').textContent=rows.filter(r=>['processing','triage','sourcing'].includes(r.statusClass)).length;
-        document.getElementById('completedRequests').textContent=rows.filter(r=>['closed','completed','scheduled'].includes(r.statusClass)).length;
+        // KPIs
+        const isProc = s => ['triage','sourcing','processing','on-hold'].includes(s);
+        const isDone = s => ['scheduled','closed','completed'].includes(s);
+        document.getElementById('totalRequests').textContent      = rows.length;
+        document.getElementById('newRequests').textContent        = rows.filter(r => ['new','open'].includes(r.statusClass)).length;
+        document.getElementById('processingRequests').textContent = rows.filter(r => isProc(r.statusClass)).length;
+        document.getElementById('completedRequests').textContent  = rows.filter(r => isDone(r.statusClass)).length;
 
-        const tbody=document.getElementById('requestsTableBody');
-        if(rows.length===0){
-          tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#64748b;">No requests yet</td></tr>';
+        // Table
+        const tbody = document.getElementById('requestsTableBody');
+        if (rows.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">No requests yet</td></tr>';
           return;
         }
-
-        tbody.innerHTML=rows.map(r=>`
+        tbody.innerHTML = rows.map(r => `
           <tr>
             <td>${r.facilityName}</td>
             <td>${r.positionType}</td>
             <td>${r.dateSummary}</td>
             <td>${r.duration}</td>
-            <td><span class="status-badge status-${r.statusClass}">${r.statusText}</span></td>
-            <td>${r.timestamp}</td>
+            <td><span class="status-badge status-${r.statusClass}">${r.statusText.toUpperCase()}</span></td>
+            <td>${new Date(r.timestamp).toLocaleDateString()}</td>
           </tr>
         `).join('');
-
       }catch(err){
         console.error(err);
-        alert("Unable to load dashboard");
+        alert('Unable to load the dashboard right now.');
       }
     }
-
-    addDateShift(); // add first shift entry on load
   </script>
 </body>
 </html>
