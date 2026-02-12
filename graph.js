@@ -1,13 +1,6 @@
 // ===================== graph.js =====================
-// This file handles Microsoft Graph calls to your SharePoint List.
-// Replace SITE_ID and LIST_ID with your actual SharePoint values.
-
-// IMPORTANT:
-// - You MUST replace the placeholders below after uploading this file.
-// - I will help you get your site ID and list ID next.
-
-const SITE_ID = 'YOUR_SITE_ID';
-const LIST_ID = 'YOUR_LIST_ID';
+const SITE_ID = 'interimwm.sharepoint.com,b7376cd3-3e98-4800-a514-952b910353bd,6b26dce2-4242-4c0f-9fb8-45d6f4c128d1';
+const LIST_ID = '34e0c73f-8309-4143-8de6-c1b1bdcf05d6';
 
 // ----- Helper: GET auth token from auth.js -----
 async function graphRequest(url, method = 'GET', body = null) {
@@ -16,26 +9,21 @@ async function graphRequest(url, method = 'GET', body = null) {
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json'
   };
-
   const options = { method, headers };
   if (body) options.body = JSON.stringify(body);
 
   const res = await fetch(url, options);
-  if (!res.ok) {
-    throw new Error(`Graph API error: ${res.status} ${res.statusText}`);
-  }
+  if (!res.ok) throw new Error(`Graph API error: ${res.status} ${res.statusText}`);
   return await res.json();
 }
 
-// ----- CREATE request (submit form) -----
+// Create (form submit)
 async function createRequest(fields) {
   const url = `https://graph.microsoft.com/v1.0/sites/${SITE_ID}/lists/${LIST_ID}/items`;
-  return await graphRequest(url, 'POST', {
-    fields
-  });
+  return await graphRequest(url, 'POST', { fields });
 }
 
-// ----- GET all requests (dashboard) -----
+// Read (dashboard)
 async function getRequests() {
   const url = `https://graph.microsoft.com/v1.0/sites/${SITE_ID}/lists/${LIST_ID}/items?expand=fields`;
   const data = await graphRequest(url);
@@ -45,5 +33,4 @@ async function getRequests() {
 // expose globally
 window.createRequest = createRequest;
 window.getRequests = getRequests;
-
 // =================== end graph.js ===================
