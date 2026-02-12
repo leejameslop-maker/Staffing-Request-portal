@@ -6,7 +6,7 @@
   <title>IHC Medical Staffing - Request Portal</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 
   <style>
     :root{
@@ -306,6 +306,26 @@
     }
     function removeDateShift(id){ document.getElementById(id)?.remove(); }
 
+    // Collect shifts for POST
+    function collectShiftData(){
+      const shifts = [];
+      const dates = document.querySelectorAll('input[name="shiftDate[]"]');
+      dates.forEach((dateInput, index) => {
+        if (!dateInput.value) return;
+        const picked = [];
+        const boxes = document.querySelectorAll(`input[name="shifts_${index}[]"]:checked`);
+        boxes.forEach(box => {
+          const label = box.parentElement;
+          const countInput = label.querySelector('.staff-count-input');
+          picked.push({ type: box.value, count: parseInt(countInput.value || '1', 10) });
+        });
+        if (picked.length > 0) {
+          shifts.push({ date: dateInput.value, shifts: picked });
+        }
+      });
+      return shifts;
+    }
+
     // ---------- View switching ----------
     function switchView(view, btn){
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -367,32 +387,14 @@
       }
     });
 
-    function collectShiftData(){
-      const shifts = [];
-      const dates = document.querySelectorAll('input[name="shiftDate[]"]');
-      dates.forEach((dateInput, index) => {
-        if (!dateInput.value) return;
-        const picked = [];
-        const boxes = document.querySelectorAll(`input[name="shifts_${index}[]"]:checked`);
-        boxes.forEach(box => {
-          const label = box.parentElement;
-          const countInput = label.querySelector('.staff-count-input');
-          picked.push({ type: box.value, count: parseInt(countInput.value || '1', 10) });
-        });
-        if (picked.length > 0) {
-          shifts.push({ date: dateInput.value, shifts: picked });
-        }
-      });
-      return shifts;
-    }
-
     // ---------- Dashboard (read from SharePoint via Graph) ----------
     async function loadDashboard(){
       try{
         await signInIfNeeded();             // from auth.js
         const items = await getRequests();  // from graph.js (items with .fields)
 
-        const rows = items.map(it => {
+        // Map and include the real created timestamp for sorting/display
+        let rows = items.map(it => {
           const facility = getField(it, SRP_FIELDS.FacilityName) || 'N/A';
           const position = getField(it, SRP_FIELDS.PositionType) || 'N/A';
           const duration = getField(it, SRP_FIELDS.Duration) || 'N/A';
@@ -401,6 +403,9 @@
           const status   = (getField(it, SRP_FIELDS.Status) || '').toString();
           const badge    = (stage || status || 'New').toLowerCase();
 
+          // Use Graph's real create/modify times
+          const submitted = it.createdDateTime || it.lastModifiedDateTime || new Date().toISOString();
+
           return {
             facilityName: facility,
             positionType: position,
@@ -408,9 +413,12 @@
             dateSummary: summary,
             statusClass: badge,
             statusText: (stage || status || 'New'),
-            timestamp: new Date().toISOString()
+            timestamp: submitted
           };
         });
+
+        // 🔽 NEW: sort newest first by submitted timestamp
+        rows.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
         // KPIs
         const isProc = s => ['triage','sourcing','processing','on-hold'].includes(s);
