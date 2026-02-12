@@ -90,7 +90,7 @@
     tbody tr:hover{background:var(--bg)}
 
     .status-badge{padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600}
-    /* Stage/Status chips */
+    /* Stage/Status chips (Stage preferred; Status fallback) */
     .status-new,.status-open{background:#e0f2fe;color:#0369a1}
     .status-triage,.status-sourcing,.status-processing{background:#fef3c7;color:#92400e}
     .status-scheduled{background:#dbeafe;color:#1e40af}
@@ -109,8 +109,8 @@
     <div class="container">
       <div class="header-content">
         <div class="logo-container">
-          <!-- If you have a logo file, point to it here -->
-          <img id="logoImg" alt="IHC Medical Staffing" src="" />
+          <!-- ✅ Point to your logo file -->
+          <img id="logoImg" src="assets/img/logo.png" alt="IHC Medical Staffing"/>
           <div class="employee-owned-badge">100% EMPLOYEE OWNED</div>
         </div>
         <div class="nav-tabs">
@@ -252,9 +252,7 @@
 
   <!-- 4) App logic -->
   <script>
-    // =========================
     // === SharePoint field name mapping (EDIT HERE if your internal names differ) ===
-    // Confirm at: List Settings > click a column > check URL param `Field=...`
     const SRP_FIELDS = {
       Title: 'Title',
       FacilityName: 'FacilityName',
@@ -270,7 +268,6 @@
       Stage: 'Stage'                  // optional (if/when you add Stage)
     };
 
-    // Safe reader for fields from Graph items
     function getField(item, name, fallbacks = []) {
       const f = item?.fields || item || {};
       if (f[name] !== undefined && f[name] !== null) return f[name];
@@ -460,4 +457,3 @@
   </script>
 </body>
 </html>
-``
