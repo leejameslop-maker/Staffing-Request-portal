@@ -90,7 +90,7 @@
     tbody tr:hover{background:var(--bg)}
 
     .status-badge{padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600}
-    /* Stage/Status chips (Stage preferred; Status fallback) */
+    /* Stage/Status chips */
     .status-new,.status-open{background:#e0f2fe;color:#0369a1}
     .status-triage,.status-sourcing,.status-processing{background:#fef3c7;color:#92400e}
     .status-scheduled{background:#dbeafe;color:#1e40af}
@@ -109,8 +109,8 @@
     <div class="container">
       <div class="header-content">
         <div class="logo-container">
-          <!-- ✅ Point to your logo file -->
-          <img id="logoImg" src="assets/img/logo.png" alt="IHC Medical Staffing"/>
+          <!-- ✅ We set src by script below so we can fallback to base64 if the file is missing -->
+          <img id="logoImg" alt="IHC Medical Staffing"/>
           <div class="employee-owned-badge">100% EMPLOYEE OWNED</div>
         </div>
         <div class="nav-tabs">
@@ -139,7 +139,7 @@
         <div id="successMessage" class="success-message">Request submitted successfully! We'll be in touch within 2 hours.</div>
 
         <form id="staffingForm" class="form-grid">
-          <!-- Facility Information -->
+          <!-- Facility -->
           <div class="form-row">
             <div class="form-group">
               <label>Facility Name <span class="required">*</span></label>
@@ -162,7 +162,7 @@
             </div>
           </div>
 
-          <!-- Staffing Details -->
+          <!-- Details -->
           <div class="form-row">
             <div class="form-group">
               <label>Position Type <span class="required">*</span></label>
@@ -189,14 +189,14 @@
             </div>
           </div>
 
-          <!-- Multi-Date Shift Selection -->
+          <!-- Dates/Shifts -->
           <div class="shift-section">
             <h3>Open Shifts by Date</h3>
             <div id="dateShiftContainer"></div>
             <button type="button" class="add-date-btn" onclick="addDateShift()">+ Add Date</button>
           </div>
 
-          <!-- Special Requirements -->
+          <!-- Notes -->
           <div class="form-group">
             <label>Special Requirements or Notes</label>
             <textarea name="notes" placeholder="Any specific requirements, certifications needed, or additional information..."></textarea>
@@ -238,21 +238,46 @@
     </div>
   </div>
 
-  <!-- =========================
+  <!-- =========
+       LOGO SETUP (file path + base64 fallback)
+       ========= -->
+  <script>
+    // 1) Preferred logo file path in your repo (change if different):
+    const LOGO_PATH = 'assets/img/logo.png';
+
+    // 2) Base64 fallback (tiny red dot placeholder here—replace with your real base64 if you want)
+    const LOGO_FALLBACK_BASE64 =
+      'iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAACXBIWXMAAAsSAAALEgHS3X78AAAAI0lEQVQoz2P8//8/AzWQBaNgFIYB4SgYpMEgFQwGQwM0AACTBw3jOa2oYwAAAABJRU5ErkJggg==';
+
+    (function setLogo(){
+      const img = document.getElementById('logoImg');
+      if(!img) return;
+
+      // Try the repo file first
+      const testImg = new Image();
+      testImg.onload = () => { img.src = LOGO_PATH; };
+      testImg.onerror = () => {
+        // Fallback to base64 to avoid broken icon
+        img.src = 'data:image/png;base64,' + LOGO_FALLBACK_BASE64;
+        img.alt = 'IHC Medical Staffing';
+      };
+      testImg.src = LOGO_PATH;
+    })();
+  </script>
+
+  <!-- =========
        Scripts (order matters)
-       ========================= -->
+       ========= -->
   <!-- 1) MSAL library -->
   <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
-
   <!-- 2) Your MSAL bootstrap -->
   <script src="auth.js"></script>
-
   <!-- 3) Your Graph helpers -->
   <script src="graph.js"></script>
 
-  <!-- 4) App logic -->
+  <!-- 4) App Logic -->
   <script>
-    // === SharePoint field name mapping (EDIT HERE if your internal names differ) ===
+    /* === SharePoint field name mapping (EDIT HERE if your internal names differ) === */
     const SRP_FIELDS = {
       Title: 'Title',
       FacilityName: 'FacilityName',
@@ -268,6 +293,7 @@
       Stage: 'Stage'                  // optional (if/when you add Stage)
     };
 
+    // Safe reader for Graph items
     function getField(item, name, fallbacks = []) {
       const f = item?.fields || item || {};
       if (f[name] !== undefined && f[name] !== null) return f[name];
@@ -359,7 +385,7 @@
       const formData = new FormData(this);
       const shifts = collectShiftData();
 
-      // Compact shift summary for text column
+      // Compact shift summary for a text column (optional)
       const shiftSummary = shifts.length
         ? shifts.map(s => {
             const parts = s.shifts.map(x => `${x.type} x${x.count}`).join(', ');
@@ -420,7 +446,7 @@
             dateSummary: summary,
             statusClass: badge,
             statusText: (stage || status || 'New'),
-            timestamp: new Date().toISOString() // simple display
+            timestamp: new Date().toISOString()
           };
         });
 
