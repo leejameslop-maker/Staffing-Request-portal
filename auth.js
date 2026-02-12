@@ -1,8 +1,7 @@
 // ===================== auth.js =====================
-// Fill in these two values from Entra ID (App registrations > Your app > Overview)
-// Replace the placeholders exactly once and commit this file to your repo root.
-const tenantId = 'YOUR_TENANT_ID'; // e.g., 11111111-2222-3333-4444-555555555555
-const clientId = 'YOUR_CLIENT_ID'; // e.g., 00000000-0000-0000-0000-000000000000
+// Entra ID (App registrations > Your app > Overview)
+const tenantId = '09bcf3cb-a7ba-4d82-aabb-d6005731b877';   // Directory (tenant) ID
+const clientId = '7e8e1393-eeac-4b56-ab11-10de17e3b219';   // Application (client) ID
 
 // App authority and redirect locations (GitHub Pages)
 const authority = `https://login.microsoftonline.com/${tenantId}`;
@@ -23,23 +22,13 @@ const graphScopes = [
 // <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
 
 const msalConfig = {
-  auth: {
-    clientId,
-    authority,
-    redirectUri,
-    postLogoutRedirectUri
-  },
-  cache: {
-    cacheLocation: 'localStorage', // persist across refresh
-    storeAuthStateInCookie: false  // set true only for legacy IE/EdgeHTML
-  },
+  auth: { clientId, authority, redirectUri, postLogoutRedirectUri },
+  cache: { cacheLocation: 'localStorage', storeAuthStateInCookie: false },
   system: { allowNativeBroker: false }
 };
 
-// Create the MSAL instance
 const msalInstance = new msal.PublicClientApplication(msalConfig);
 
-// Sign-in helper used by index.html
 async function signInIfNeeded() {
   const accounts = msalInstance.getAllAccounts();
   if (accounts.length === 0) {
@@ -47,20 +36,18 @@ async function signInIfNeeded() {
   }
 }
 
-// Acquire token for Microsoft Graph
 async function getAccessToken() {
   const acct = msalInstance.getAllAccounts()[0];
   const req = { scopes: graphScopes, account: acct };
   try {
     const res = await msalInstance.acquireTokenSilent(req);
     return res.accessToken;
-  } catch (e) {
+  } catch {
     const res = await msalInstance.acquireTokenPopup({ scopes: graphScopes });
     return res.accessToken;
   }
 }
 
-// Expose to global (so index.html can call them)
 window.signInIfNeeded = signInIfNeeded;
 window.getAccessToken = getAccessToken;
 // =================== end auth.js ===================
