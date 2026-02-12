@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IHC Medical Staffing - Request Portal</title>
 
-  <!-- ✅ Correct Google Fonts include -->
+  <!-- ✅ Proper Google Fonts include -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
   <style>
@@ -109,8 +109,14 @@
     <div class="container">
       <div class="header-content">
         <div class="logo-container">
-          <!-- 👇 We set src by script (with fallback) so you never see a broken icon -->
-          <img id="logoImg" alt="IHC Medical Staffing"/>
+          <!-- ✅ Try repo logo first; if it fails, fallback to inline base64 so it never looks broken -->
+          <img
+            id="logoImg"
+            alt="IHC Medical Staffing"
+            src="assets/img/logo.png"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTIwJyBoZWlnaHQ9JzUwJyB2aWV3Qm94PScwIDAgMTIwIDUwJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxyZWN0IHdpZHRoPScxMjAnIGhlaWdodD0nNTAnIGZpbGw9JyNmZmYnIHJ4PSc4Jy8+PHRleHQgeD0nNjAnIHk9JzM0JyBmb250LXNpemU9JzI0JyBmb250LXdlaWdodD0nNTAwJyB0ZXh0LWFuY2hvcj0nY2VudGVyJyBmaWxsPScjQzQxRTNBJz5JSEM8L3RleHQ+PC9zdmc+';"
+            style="object-fit:contain"
+          />
           <div class="employee-owned-badge">100% EMPLOYEE OWNED</div>
         </div>
         <div class="nav-tabs">
@@ -238,48 +244,14 @@
     </div>
   </div>
 
-  <!-- =========
-       LOGO SETUP (file path + base64 fallback)
-       ========= -->
-  <script>
-    // 1) Preferred logo file path in your repo (change if different):
-    const LOGO_PATH = 'assets/img/logo.png';
-
-    // 2) Base64 fallback (a simple red dot placeholder—replace with your own base64 if desired)
-    const LOGO_FALLBACK_BASE64 =
-      'iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAACXBIWXMAAAsSAAALEgHS3X78AAAAI0lEQVQoz2P8//8/AzWQBaNgFIYB4SgYpMEgFQwGQwM0AACTBw3jOa2oYwAAAABJRU5ErkJggg==';
-
-    (function setLogo(){
-      const img = document.getElementById('logoImg');
-      if(!img) return;
-
-      // If you prefer to ALWAYS use a known base64 of your real logo, set it directly:
-      // img.src = 'data:image/png;base64,PASTE_YOUR_REAL_LOGO_BASE64_HERE';
-
-      // Otherwise: try the repo file first; if it 404s, use the small base64 placeholder.
-      const testImg = new Image();
-      testImg.onload = () => { img.src = LOGO_PATH; };
-      testImg.onerror = () => {
-        img.src = 'data:image/png;base64,' + LOGO_FALLBACK_BASE64;
-        img.alt = 'IHC Medical Staffing';
-      };
-      testImg.src = LOGO_PATH;
-    })();
-  </script>
-
-  <!-- =========
-       Scripts (order matters)
-       ========= -->
-  <!-- 1) MSAL library -->
+  <!-- ========= Scripts (order matters) ========= -->
   <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
-  <!-- 2) Your MSAL bootstrap -->
   <script src="auth.js"></script>
-  <!-- 3) Your Graph helpers -->
   <script src="graph.js"></script>
 
-  <!-- 4) App Logic -->
+  <!-- ========= App Logic ========= -->
   <script>
-    /* === SharePoint field name mapping (EDIT HERE if your internal names differ) === */
+    /* === SharePoint field name mapping (EDIT HERE only if your internal names differ) === */
     const SRP_FIELDS = {
       Title: 'Title',
       FacilityName: 'FacilityName',
@@ -387,7 +359,7 @@
       const formData = new FormData(this);
       const shifts = collectShiftData();
 
-      // Compact shift summary for a text column (optional)
+      // Compact shift summary for text column (optional)
       const shiftSummary = shifts.length
         ? shifts.map(s => {
             const parts = s.shifts.map(x => `${x.type} x${x.count}`).join(', ');
