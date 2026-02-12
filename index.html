@@ -109,7 +109,7 @@
     <div class="container">
       <div class="header-content">
         <div class="logo-container">
-          <!-- ✅ We set src by script below so we can fallback to base64 if the file is missing -->
+          <!-- 👇 We set src by script (with fallback) so you never see a broken icon -->
           <img id="logoImg" alt="IHC Medical Staffing"/>
           <div class="employee-owned-badge">100% EMPLOYEE OWNED</div>
         </div>
@@ -245,7 +245,7 @@
     // 1) Preferred logo file path in your repo (change if different):
     const LOGO_PATH = 'assets/img/logo.png';
 
-    // 2) Base64 fallback (tiny red dot placeholder here—replace with your real base64 if you want)
+    // 2) Base64 fallback (a simple red dot placeholder—replace with your own base64 if desired)
     const LOGO_FALLBACK_BASE64 =
       'iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAACXBIWXMAAAsSAAALEgHS3X78AAAAI0lEQVQoz2P8//8/AzWQBaNgFIYB4SgYpMEgFQwGQwM0AACTBw3jOa2oYwAAAABJRU5ErkJggg==';
 
@@ -253,11 +253,13 @@
       const img = document.getElementById('logoImg');
       if(!img) return;
 
-      // Try the repo file first
+      // If you prefer to ALWAYS use a known base64 of your real logo, set it directly:
+      // img.src = 'data:image/png;base64,PASTE_YOUR_REAL_LOGO_BASE64_HERE';
+
+      // Otherwise: try the repo file first; if it 404s, use the small base64 placeholder.
       const testImg = new Image();
       testImg.onload = () => { img.src = LOGO_PATH; };
       testImg.onerror = () => {
-        // Fallback to base64 to avoid broken icon
         img.src = 'data:image/png;base64,' + LOGO_FALLBACK_BASE64;
         img.alt = 'IHC Medical Staffing';
       };
